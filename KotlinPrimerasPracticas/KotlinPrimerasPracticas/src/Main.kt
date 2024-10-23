@@ -3,9 +3,8 @@
 import java.util.*
 
 fun main() {
-    val num1:Int = 2
-    val num2:Int = 4
-
+    //val num1:Int = 2
+    //val num2:Int = 4
     //println("Valor 1 = " + num1 + "\n" +"Valor 2 = " + num2)
     //println("La suma es: " + sum(num1, num2))
     //println("La resta es: " + rest(num1, num2))
@@ -17,10 +16,10 @@ fun main() {
     //trimestres(5)
     //cuatrimestres(8)
     //notificaciones(51)
-    //precioEntradas(33, "martes")
-    temperaturas(27.0)
-    temperaturas(350.0)
-    temperaturas(10.0)
+    //precioEntradas()
+    //temperaturas(27.0)
+    //temperaturas(350.0)
+    //temperaturas(10.0)
 }
 fun concatenacion(){
     val saludo = "Hola me llamo"
@@ -131,7 +130,9 @@ fun notificaciones(noti:Int) {
     }
 }
 
-fun precioEntradas(edad:Int, dia:String){
+fun precioEntradas(){
+    val edad:Int = readln().toInt()
+    val dia:String = readln()
           when (edad) {
               in 0..12 -> println("El precio de la entrada al cine para una persona de " + edad + " es de 5.4 euros.")
               in 13..60 -> if (dia.lowercase() == "lunes") {
@@ -145,16 +146,15 @@ fun precioEntradas(edad:Int, dia:String){
 }
 
 fun temperaturas (grados:Double){
-    //A Fahrenheit
     val sc = Scanner(System.`in`)
     println("Escribe 1 si la conversion es de Celsius a Fahrenheit")
     println("Escribe 2 si la conversion es de Kelvin a Celsius")
     println("Escribe 3 si la conversion es de Fahrenheit a Kelvin")
     val gc:Int = sc.nextInt()
+    sc.close()
     val v1:Double = (grados * 9 / 5) + 32
     val v2:Double = (grados -273.15)
     val v3:Double = (grados - 32) * 5 / 9 + 273.15
-
 
     if (gc == 1){
         println("$grados grados Celsius son " + (String.format("%.2f", v1)) + " grados Fahrenheit")
