@@ -20,6 +20,10 @@ fun main() {
     //temperaturas(27.0)
     //temperaturas(350.0)
     //temperaturas(10.0)
+    //arrays()
+    //listas()
+    //mapas()
+    fors()
 }
 fun concatenacion(){
     val saludo = "Hola me llamo"
@@ -164,5 +168,82 @@ fun temperaturas (grados:Double){
     }
     if (gc == 3){
         println("$grados grados Fahrenheit son " + (String.format("%.2f", v3)) + " grados Kelvin")
+    }
+}
+
+fun arrays(){
+    val semana = arrayOf("Lunes", "Martes", "Miercoles","Jueves","Viernes", "Sabado", "Domingo")
+    println(semana[0])
+    println(semana.get(1))
+    println(semana.size)
+    println(semana.get(semana.size - 1))
+    println(semana.set(0, "Monday"))
+
+    for (i in semana){
+        println(i)
+    }
+
+    for ((posicion, valor) in semana.withIndex()){
+        println("La posicion es $posicion y el valor es $valor")
+    }
+}
+
+fun listas(){
+    val semana: List<String> = listOf("Lunes", "Martes", "Miercoles","Jueves","Viernes", "Sabado", "Domingo")
+    println(semana.size)
+
+    val semanaMutable: MutableList<String> = mutableListOf("Lunes", "Martes", "Miercoles","Jueves","Viernes")
+    val semanaMutable2: MutableList<String> = mutableListOf("Sabado", "Domingo")
+    println(semanaMutable)
+    semanaMutable.addAll(semanaMutable2)
+    println(semanaMutable)
+    println(semanaMutable.none())
+    println(semanaMutable)
+    println(semanaMutable.firstOrNull())
+    println(semanaMutable.elementAtOrNull(2))
+    println(semanaMutable.lastOrNull())
+
+    for ((posicion, valor) in semanaMutable.withIndex()){
+        println("La posicion $posicion contiene $valor")
+    }
+
+    val nuevaLista: MutableList<String> = mutableListOf()
+    semanaMutable2.forEach{
+        nuevaLista.add(it + " Mutante")
+    }
+    println(nuevaLista)
+}
+
+fun mapas(){
+    val mapa = mapOf(1 to "Manzana", 2 to "Pera", 3 to "Melocotón")
+    val mapaVacio = mapOf<Int, String>()
+    val mapaMutable = mutableMapOf(1 to "Manzana", 2 to "Pera", 3 to "Melocotón")
+    val mapaMutableVacio = mutableMapOf<String, String>()
+    println(mapa.entries)
+    println(mapa.keys)
+    println(mapa.values)
+    println(mapa.size)
+    println(mapa[2])
+    println(mapa.getValue(2))
+    println(mapa.getOrDefault(3, "No existe"))
+    println(mapa.getOrDefault(4, "No existe"))
+    if(mapa.contains(1)){
+        println("Existe la clave")
+    } else {
+        println("No existe la clave")
+    }
+
+    if(mapa.contains(4)){
+        println("Existe la clave")
+    } else {
+        println("No existe la clave")
+    }
+    println(mapaMutable.clear())
+    println(mapaMutable)
+}
+
+fun fors(){
+    for(c in 0 ..  10){
+        println(c)
     }
 }
