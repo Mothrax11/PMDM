@@ -23,7 +23,10 @@ fun main() {
     //arrays()
     //listas()
     //mapas()
-    fors()
+    //fors()
+    //lambdas()
+    //miFuncionOperacion(5, 10, {x, y -> x - y})
+    temperaturasLambda(14.00, {(it * 9 / 5) + 32)}
 }
 fun concatenacion(){
     val saludo = "Hola me llamo"
@@ -246,4 +249,30 @@ fun fors(){
     for(c in 0 ..  10){
         println(c)
     }
+}
+
+fun lambdas(){
+    val listaNumeros = arrayListOf(0,1,2,3,4,5,6,7,8,9)
+    val listaFiltrados = listaNumeros.filter{miNumero ->
+        miNumero > 5 || miNumero == 1
+        }
+    println(listaFiltrados)
+
+    var miFuncionSuma = fun(x:Int, y:Int): Int = x + y;
+    var miFuncionMultiplicar = fun(x:Int, y:Int): Int = x * y;
+    println(miFuncionSuma(5,10))
+    println(miFuncionMultiplicar(5,10))
+
+}
+
+fun miFuncionOperacion(x:Int, y:Int, miFuncion: (Int,Int) -> Int) : Int {
+    println(miFuncion(x,y))
+    return miFuncion(x, y)
+}
+
+
+fun temperaturasLambda (grados:Double, gc:Int, tempFuncionLambda: (Double) -> Double) {
+    var cf = fun(grados:Double): Double = (grados * 9 / 5) + 32
+    var kc = fun(grados:Double): Double = (grados - 273.15)
+    var fk = fun(grados:Double): Double = (grados - 32) * 5 / 9 + 273.15
 }
