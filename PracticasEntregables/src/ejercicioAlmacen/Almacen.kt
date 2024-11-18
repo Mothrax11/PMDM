@@ -1,99 +1,113 @@
 package ejercicioAlmacen
 
-class Almacen{
+class Almacen {
+    private lateinit var fila1:MutableList<Bebida?>;
+    private lateinit var fila2:MutableList<Bebida?>;
+    private lateinit var fila3:MutableList<Bebida?>;
+    private lateinit var fila4:MutableList<Bebida?>;
+    private lateinit var fila5:MutableList<Bebida?>;
+    private lateinit var estanteria: MutableList<MutableList<Bebida?>>
 
-        private lateinit var fila1:MutableList<Bebida?>;
-        private lateinit var fila2:MutableList<Bebida?>;
-        private lateinit var fila3:MutableList<Bebida?>;
-        private lateinit var fila4:MutableList<Bebida?>;
-        private lateinit var fila5:MutableList<Bebida?>;
-        private lateinit var estanteria: MutableList<MutableList<Bebida?>>
+    fun constructor(){
+        fila1 = MutableList(5) { null }
+        fila2 = MutableList(5) { null }
+        fila3 = MutableList(5) { null }
+        fila4 = MutableList(5) { null }
+        fila5 = MutableList(5) { null }
+        estanteria = arrayListOf(fila1, fila2, fila3, fila4, fila5);
+    }
 
-        fun constructor(){
-            fila1 = MutableList(5) { null }
-            fila2 = MutableList(5) { null }
-            fila3 = MutableList(5) { null }
-            fila4 = MutableList(5) { null }
-            fila5 = MutableList(5) { null }
-            estanteria = arrayListOf(fila1, fila2, fila3, fila4, fila5);
-        }
-
-
-    fun agregarBebida(Bebida:Bebida){
-        var bebidaRepe = false;
-
-        for (i in estanteria.indices){
-            for (j in estanteria[i]){
-                if(j != null){
-                    if (j.id == Bebida.id) {
-                        bebidaRepe = true;
-                    }
+    fun agregarBebida(bebida: Bebida) {
+        for (fila in estanteria) {
+            for (i in fila.indices) {
+                if (fila[i]?.id == bebida.id) {
+                    println("Error: La bebida con ID ${bebida.id} ya existe.");
+                    return;
                 }
             }
         }
+        for (fila in estanteria) {
+            for (i in fila.indices) {
+                if (fila[i] == null) {
+                    fila[i] = bebida;
 
-        if(!bebidaRepe){
-            for (i in estanteria.indices){
-                for (j in estanteria[i]){
-                    if (j == null) {
-                        estanteria[i].add(Bebida)
-                    }
+                    println("Bebida agregada: ${bebida}");
+                    return;
                 }
             }
         }
+        println("Error: El almacén está lleno.");
     }
 
     fun eliminarBebida(id: Long): Boolean {
         for (fila in estanteria) {
             for (i in fila.indices) {
                 if (fila[i]?.id == id) {
-                    fila[i] = null
-                    return true
+                    fila[i] = null;
+                    return true;
                 }
             }
         }
-        return false
+        return false;
     }
 
-    //Calcular precio TOTAL
-    fun calcularPrecio (){
-        var precioTotal:Double = 0.0;
-        for (i in estanteria.indices){
-            for (j in estanteria[i]){
-                if (j != null) {
-                    precioTotal += j.precio
+    fun calcularPrecio(): Double {
+        var precioTotal = 0.0
+        for (fila in estanteria) {
+            for (bebida in fila) {
+                if (bebida != null) {
+                    precioTotal += bebida.precio;
                 }
             }
         }
-        println("El precio total de todas las bebidas de la estanteria es de $precioTotal")
+        return precioTotal
     }
 
-    //Calcular precio por columna
-    fun calcularPrecio (columna:Int){
-        var precioTotalColumna:Double = 0.0;
-        for (i in estanteria.indices){
-            for (j in estanteria[i]){
-                if (j != null) {
-                    precioTotalColumna += j.precio
+    fun calcularPrecio(marca: String): Double {
+        var precioTotal = 0.0
+        for (fila in estanteria) {
+            for (bebida in fila) {
+                if (bebida != null && bebida.marca == marca) {
+                    precioTotal += bebida.precio
                 }
             }
         }
-        println("El precio total de la columna $columna es de $precioTotalColumna")
+        return precioTotal
     }
 
+    fun calcularPrecio(columna: Int): Double {
+        if (columna !in 0..4) {
+            println("Error: La columna $columna no es válida.")
+            return 0.0
+        }
+        var precioTotal = 0.0
+        for (fila in estanteria) {
+            if (fila[columna] != null) {
+                precioTotal += fila[columna]?.precio ?: 0.0
+            }
+        }
+        return precioTotal
+    }
 
-    fun mostrarBebidas(){
-        for (i in estanteria.indices){
-            for (j in estanteria[i]){
-                if (j != null) {
-                    println("---------- Datos de la bebida ----------")
-                    println(j)
-
-                }
+    fun mostrarBebidas() {
+        for (fila in estanteria) {
+            for (bebida in fila) {
+                bebida?.let { println(it) }
             }
         }
     }
 
-
-
+    fun mostrarEstructura() {
+        for (i in estanteria.indices) {
+            val ids = mutableListOf<String>()
+            for (bebida in estanteria[i]) {
+                if (bebida != null) {
+                    ids.add(bebida.id.toString())
+                } else {
+                    ids.add("vacío")
+                }
+            }
+            println("Fila $i: $ids")
+        }
+    }
 }
