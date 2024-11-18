@@ -43,24 +43,25 @@ class Almacen{
         }
     }
 
-    fun eliminarBebida(id:Long){
-        for (i in estanteria.indices){
-            for (j in estanteria[i]){
-                if (j != null) {
-                    if (j.id == id) {
-                        estanteria[i].removeAt(i)
-                    }
+    fun eliminarBebida(id: Long): Boolean {
+        for (fila in estanteria) {
+            for (i in fila.indices) {
+                if (fila[i]?.id == id) {
+                    fila[i] = null
+                    return true
                 }
             }
         }
+        return false
     }
+
     //Calcular precio TOTAL
     fun calcularPrecio (){
         var precioTotal:Double = 0.0;
         for (i in estanteria.indices){
             for (j in estanteria[i]){
                 if (j != null) {
-                    precioTotal =+ j.precio
+                    precioTotal += j.precio
                 }
             }
         }
@@ -73,7 +74,7 @@ class Almacen{
         for (i in estanteria.indices){
             for (j in estanteria[i]){
                 if (j != null) {
-                    precioTotalColumna =+ j.precio
+                    precioTotalColumna += j.precio
                 }
             }
         }
